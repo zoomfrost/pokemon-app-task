@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
-import ClickIcon from "@/icons/Icon.svg";
+import ClickIcon from "@/public/Icon.svg";
 
 const PokemonClick = () => {
   return (
