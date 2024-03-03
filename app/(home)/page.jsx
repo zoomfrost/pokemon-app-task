@@ -35,7 +35,7 @@ export default async function Home() {
           <Box width={"50%"}>
             <Suspense fallback={<LoadingPokemonInfo />}>
               <PokemonInfo />
-            </Suspense>{" "}
+            </Suspense>
           </Box>
         </Stack>
       </Container>
