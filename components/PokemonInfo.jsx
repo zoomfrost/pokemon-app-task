@@ -2,16 +2,23 @@
 
 import { Stack, Typography } from "@mui/material";
 import PokemonClick from "./ui/PokemonClick";
-import { getPokemonInfo } from "@/actions/serverActions";
 import Image from "next/image";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import LoadingPokemonInfo from "./ui/LoadingPokemonInfo";
+import { useEffect, useState } from "react";
 
-const PokemonInfo = async () => {
+const PokemonInfo = () => {
   const searchParams = useSearchParams();
   const pokemon = searchParams.get("pokemon");
+  const [data, setData] = useState(null);
 
   const baseUrl = "https://pokeapi.co/api/v2";
+
+  useEffect(() => {
+    setData(null);
+    axios.get(`${baseUrl}/pokemon/${pokemon}`).then((data) => setData(data));
+  }, [pokemon]);
 
   if (!pokemon) {
     return (
@@ -21,9 +28,7 @@ const PokemonInfo = async () => {
     );
   }
 
-  // const pokemonData = await getPokemonInfo(pokemon);
-
-  const data = await axios.get(`${baseUrl}/pokemon/${pokemon}`);
+  if (!data) return <LoadingPokemonInfo />;
 
   const pokemonData = {
     name: data.data.name,
